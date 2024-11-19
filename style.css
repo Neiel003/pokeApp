@@ -109,11 +109,43 @@ body, html {
     background-color: #ff9900;
 }
 
+.combat {
+    position: absolute;
+    top: calc(50% + 31%);
+    left: 76%;
+    text-align: center;
+    width: 10%;
+    height: 15%;
+    background-color: #f01919cf; /* Color de fondo rojo */
+    border: 2px solid #fff; /* Borde blanco */
+    border-radius: 50%; /* Hacerlo redondo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    color: #000000; /* Texto blanco */
+    font-family: 'PC', sans-serif;
+    font-size: 0.9em; /* Tamaño del texto */
+    cursor: pointer; /* Cambiar el cursor */
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    outline: none; /* Eliminar contorno al enfocar */
+    border-style: solid; /* Asegurar el borde visible */
+    border-width: 2px; /* Ancho del borde */
+    border-color: #fff; /* Color del borde */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves */
+    padding: 0; /* Eliminar cualquier relleno adicional */
+    appearance: none; /* Eliminar estilos nativos del botón */
+}
+
+.combat:hover {
+    transform: scale(1.05); /* Efecto al pasar el mouse */
+    background-color: #e01313; /* Color de fondo al pasar el mouse */
+}
+
 #pokePropio {
     position: absolute;
     left: 20%;
     bottom: 7%;
-    width: 15%;
+    width: 25%;
     height: auto;
 }
 
@@ -140,7 +172,7 @@ body, html {
     top: 25%;
     right: 1%;
     width: 13%;
-    background-color: rgb(246, 246, 131);
+    background-color: rgb(161, 161, 49);
     padding: 5px;
     box-sizing: border-box;
     border: 2px solid black;
