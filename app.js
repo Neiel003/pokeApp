@@ -96,42 +96,26 @@ const obtenerPokeRival = () =>{
 
     })
 }
-
-
-
-
-//La defensa especial o fisica del pokemon que recibe el ataque sera restada del ataque especial o fisico del pokemon atacante, la diferencia será restada a la vida del pokemondefensor
-
-
-
-
+//Combate, el pokemon perdedor será el que se le acabe primero su vida.
+//El usuario deberá elegir si ocupa ataque fisico o especial, según lo elegido los pokemon usarán su defensa especial o defensa fisica para bloquear los ataques
+//La defensa especial o fisica del pokemon que recibe el ataque sera restada del ataque especial o fisico del pokemon atacante, la diferencia será restada a la vida del pokemon defensor
+//En caso de que el resultado de la resta sea negativo o cero, se va a dejar un 1 como el resultado minimo de la resta
+//El pokemon que tenga más velocidad va a pegar primero
 //Se debe de aplicar la tabla de tipos al resultado de la resta de defensa y ataque, pero solo en daño, no en resitencias
-
 //Ejemplo poke1AtaqueFisico = 56;
 // poke2Defensafisica = 35; poke2vida = 98;
 // DañoRecibido = poke1AtaqueFisico - poke2DefensaFisica;
 //poke2VidaRestante = poke2Vida - DañoRecibido;
-
-
-
-
-
-
-
+//Se turnarán los pokemon hasta que haya un ganador
+//Mostrar el ganadoredf
+// Combate, el pokemon perdedor será el que se le acabe primero su vida.
+// El pokemon que tenga más velocidad va a pegar primero
 // Variables de combate y referencias
-
 let turno = 'propio';  // Empieza el turno del jugador (propio)
 let combateActivo = true;  // Indica si el combate está activo
 
-// Función para calcular el daño
-//Combate, el pokemon perdedor será el que se le acabe primero su vida.
+// Función para calcular el daño es esta
 const calcularDaño = (ataque, defensa) => {
-    const tipoAtacante = tipo1Propio.innerHTML; // O tipo2Propio
-    const tipoDefensor = tipo1Rival.innerHTML; // O tipo2Rival
-    const modificador = tablaTipos[tipoAtacante][tipoDefensor] || 1; // Default 1
-    daño *= modificador;
-
-    //En caso de que el resultado de la resta sea negativo o cero, se va a dejar un 1 como el resultado minimo de la resta
     let daño = ataque - defensa;
     return daño > 0 ? daño : 1;  // Si el daño es negativo o cero, devolver 1
 };
@@ -140,8 +124,6 @@ const combate = () => {
     if (!combateActivo) return;  // Si el combate no está activo, no hacer nada
 
     console.log("Turno de combate:", turno);
-    turno = turno === 'propio' ? 'rival' : 'propio';
-
 
     // Obtener los valores de vida, ataque, defensa y velocidad de ambos Pokémon
     const vidaPropioValor = parseInt(vidaPropio.innerHTML);
@@ -171,12 +153,10 @@ const combate = () => {
     }
 
     // Función para realizar un turno de ataque
-    //Se turnarán los pokemon hasta que haya un ganador
     const realizarTurno = (atacante, defensor, tipoAtaque) => {
         let daño;
         let vidaRestanteDefensor;
 
-//El usuario deberá elegir si ocupa ataque fisico o especial, según lo elegido los pokemon usarán su defensa especial o defensa fisica para bloquear los ataques
         if (atacante === 'propio') {
             if (tipoAtaque === 'fisico') {
                 daño = calcularDaño(atkFisPropioValor, defensor === 'rival' ? defensaFisRivalValor : defensaFisPropioValor);
@@ -205,17 +185,14 @@ const combate = () => {
         } else if (defensor === 'rival') {
             vidaRival.innerHTML = vidaRestanteDefensor;
         }
-//Mostrar el ganador
 
-// Combate, el pokemon perdedor será el que se le acabe primero su vida.
         // Verificar si alguno de los Pokémon ha sido derrotado
         if (vidaRestanteDefensor <= 0) {
             combateActivo = false;
             alert(`${defensor === 'propio' ? 'El Pokémon propio' : 'El Pokémon rival'} ha sido derrotado. ¡${defensor === 'propio' ? 'El rival' : 'El jugador'} gana!`);
         }
     };
-    
-// El pokemon que tenga más velocidad va a pegar primero
+
     // Determinar quién ataca primero según la velocidad
     if (velocidadPropioValor >= velocidadRivalValor) {
         // El Pokémon propio ataca primero
@@ -272,7 +249,7 @@ const efectividad = {
   // Función para calcular el multiplicador
   function calcularMultiplicador(tipoAtaque, tipoDefensa) {
     if (!efectividad[tipoAtaque] || efectividad[tipoAtaque][tipoDefensa] === undefined) {
-      return 1; // Daño normal
+      return 1; // Daño normal c
     }
     return efectividad[tipoAtaque][tipoDefensa];
   }
@@ -283,7 +260,7 @@ const efectividad = {
   
     let mensaje;
     if (multiplicador === 2) {
-      mensaje = "¡Es súper efectivo! Daño x2";
+      mensaje = "¡Es súper efectivo! Daño x2 ";
     } else if (multiplicador === 0.5) {
       mensaje = "No es muy efectivo... Daño x1/2";
     } else if (multiplicador === 0) {
