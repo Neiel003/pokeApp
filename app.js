@@ -107,7 +107,7 @@ const obtenerPokeRival = () =>{
 // DañoRecibido = poke1AtaqueFisico - poke2DefensaFisica;
 //poke2VidaRestante = poke2Vida - DañoRecibido;
 //Se turnarán los pokemon hasta que haya un ganador
-//Mostrar el ganador
+//Mostrar el ganadoredf
 // Combate, el pokemon perdedor será el que se le acabe primero su vida.
 // El pokemon que tenga más velocidad va a pegar primero
 // Variables de combate y referencias
@@ -249,7 +249,7 @@ const efectividad = {
   // Función para calcular el multiplicador
   function calcularMultiplicador(tipoAtaque, tipoDefensa) {
     if (!efectividad[tipoAtaque] || efectividad[tipoAtaque][tipoDefensa] === undefined) {
-      return 1; // Daño normal
+      return 1; // Daño normal c
     }
     return efectividad[tipoAtaque][tipoDefensa];
   }
