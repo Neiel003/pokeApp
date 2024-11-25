@@ -114,7 +114,7 @@ const obtenerPokeRival = () =>{
 let turno = 'propio';  // Empieza el turno del jugador (propio)
 let combateActivo = true;  // Indica si el combate está activo
 
-// Función para calcular el daño
+// Función para calcular el daño es esta
 const calcularDaño = (ataque, defensa) => {
     let daño = ataque - defensa;
     return daño > 0 ? daño : 1;  // Si el daño es negativo o cero, devolver 1
@@ -260,7 +260,7 @@ const efectividad = {
   
     let mensaje;
     if (multiplicador === 2) {
-      mensaje = "¡Es súper efectivo! Daño x2";
+      mensaje = "¡Es súper efectivo! Daño x2 ";
     } else if (multiplicador === 0.5) {
       mensaje = "No es muy efectivo... Daño x1/2";
     } else if (multiplicador === 0) {
