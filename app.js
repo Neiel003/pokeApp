@@ -1,43 +1,75 @@
-//Atributos poke rival
+// Atributos del Pokémon rival
 const imgRival = document.querySelector('#pokeRival');
 const nombreRival = document.querySelector('#nombreRival');
 const tipo1Rival = document.querySelector('#tipo1Rival');
 const tipo2Rival = document.querySelector('#tipo2Rival');
-const atkFisRival = document.querySelector('#ataqueFisRival'); 
+const atkFisRival = document.querySelector('#ataqueFisRival');
 const atkEspRival = document.querySelector('#ataqueEspRival');
 const vidaRival = document.querySelector('#vidaRival');
 const defensaEspRival = document.querySelector('#defensaEspRival');
 const defensaFisRival = document.querySelector('#defensaFisRival');
 const velocidadRival = document.querySelector('#velocidadRival');
 
-//Atributos poke propio
+
 const imgPropio = document.querySelector('#pokePropio');
 const nombrePropio = document.querySelector('#nombrePropio');
 const tipo1Propio = document.querySelector('#tipo1Propio');
 const tipo2Propio = document.querySelector('#tipo2Propio');
-const atkFisPropio = document.querySelector('#ataquePropio'); 
+const atkFisPropio = document.querySelector('#ataquePropio');
 const atkEspPropio = document.querySelector('#ataqueEspPropio');
 const vidaPropio = document.querySelector('#vidaPropio');
 const defensaEspPropio = document.querySelector('#defensaEspPropio');
 const defensaFisPropio = document.querySelector('#defensaFisPropio');
 const velocidadPropio = document.querySelector('#velocidadPropio');
 
-//Interfaz de usuario
 
 const input = document.querySelector('#input');
 const btnElegir = document.querySelector('#btn-poke');
-const btnAtkFis  = document.querySelector('#btn-atk-fis');
-const btnAtkEsp  = document.querySelector('#btn-atk-esp');
+const btnAtkFis = document.querySelector('#btn-atk-fis');
+const btnAtkEsp = document.querySelector('#btn-atk-esp');
 
-//Método de número random
-const getNumRandom = () => {
-    let min = Math.ceil(0);
-    let max = Math.floor(1001);
 
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+const getNumRandom = () => Math.floor(Math.random() * 1001);
 
-//Se elegirá un pokemon pero solo del tipo fantasma, el tipo de elección del pokemon queda a criterio del desarrollador, que sea divertido.
+
+const efectividad = {
+    "Normal": { "Roca": 0.5, "Fantasma": 0, "Acero": 0.5 },
+    "Fuego": { "Planta": 2, "Hielo": 2, "Bicho": 2, "Acero": 2, "Fuego": 0.5, "Agua": 0.5, "Roca": 0.5, "Dragón": 0.5 },
+    "Agua": { "Fuego": 2, "Tierra": 2, "Roca": 2, "Agua": 0.5, "Planta": 0.5, "Dragón": 0.5 },
+    "Planta": { "Agua": 2, "Tierra": 2, "Roca": 2, "Fuego": 0.5, "Planta": 0.5, "Veneno": 0.5, "Volador": 0.5, "Bicho": 0.5, "Dragón": 0.5, "Acero": 0.5 },
+    "Eléctrico": { "Agua": 2, "Volador": 2, "Tierra": 0, "Eléctrico": 0.5, "Planta": 0.5, "Dragón": 0.5 },
+    "Hielo": { "Planta": 2, "Tierra": 2, "Volador": 2, "Dragón": 2, "Fuego": 0.5, "Agua": 0.5, "Hielo": 0.5, "Acero": 0.5 },
+    "Lucha": { "Normal": 2, "Hielo": 2, "Roca": 2, "Siniestro": 2, "Acero": 2, "Veneno": 0.5, "Volador": 0.5, "Psíquico": 0.5, "Bicho": 0.5, "Hada": 0.5, "Fantasma": 0 },
+    "Veneno": { "Planta": 2, "Hada": 2, "Veneno": 0.5, "Tierra": 0.5, "Roca": 0.5, "Fantasma": 0.5, "Acero": 0 },
+    "Tierra": { "Fuego": 2, "Eléctrico": 2, "Veneno": 2, "Roca": 2, "Acero": 2, "Planta": 0.5, "Bicho": 0.5, "Volador": 0 },
+    "Volador": { "Planta": 2, "Lucha": 2, "Bicho": 2, "Eléctrico": 0.5, "Roca": 0.5, "Acero": 0.5 },
+    "Psíquico": { "Lucha": 2, "Veneno": 2, "Psíquico": 0.5, "Acero": 0.5, "Siniestro": 0 },
+    "Bicho": { "Planta": 2, "Psíquico": 2, "Siniestro": 2, "Fuego": 0.5, "Lucha": 0.5, "Veneno": 0.5, "Volador": 0.5, "Fantasma": 0.5, "Acero": 0.5, "Hada": 0.5 },
+    "Roca": { "Fuego": 2, "Hielo": 2, "Volador": 2, "Bicho": 2, "Lucha": 0.5, "Tierra": 0.5, "Acero": 0.5 },
+    "Fantasma": { "Psíquico": 2, "Fantasma": 2, "Normal": 0, "Siniestro": 0.5 },
+    "Dragón": { "Dragón": 2, "Acero": 0.5, "Hada": 0 },
+    "Siniestro": { "Psíquico": 2, "Fantasma": 2, "Lucha": 0.5, "Siniestro": 0.5, "Hada": 0.5 },
+    "Acero": { "Hielo": 2, "Roca": 2, "Hada": 2, "Fuego": 0.5, "Agua": 0.5, "Eléctrico": 0.5, "Acero": 0.5 },
+    "Hada": { "Lucha": 2, "Dragón": 2, "Siniestro": 2, "Fuego": 0.5, "Veneno": 0.5, "Acero": 0.5 }
+};
+
+
+const calcularMultiplicador = (tipoAtaque, tipoDefensa) => {
+    if (!efectividad[tipoAtaque] || efectividad[tipoAtaque][tipoDefensa] === undefined) {
+        return 1; 
+    }
+    return efectividad[tipoAtaque][tipoDefensa];
+};
+
+
+const calcularDaño = (ataque, defensa, tipoAtaque, tipoDefensa1, tipoDefensa2) => {
+    let daño = ataque - defensa;
+    daño = daño > 0 ? daño : 1; 
+    const modificador1 = calcularMultiplicador(tipoAtaque, tipoDefensa1);
+    const modificador2 = tipoDefensa2 ? calcularMultiplicador(tipoAtaque, tipoDefensa2) : 1;
+    return Math.floor(daño * modificador1 * modificador2);
+};
+
 const obtenerPokePropio = ()=>{
     const num = input.value;
 
@@ -125,16 +157,7 @@ let combateActivo = true;  // Indica si el combate está activo
 
 // Función para calcular el daño
 //Combate, el pokemon perdedor será el que se le acabe primero su vida.
-const calcularDaño = (ataque, defensa) => {
-    const tipoAtacante = tipo1Propio.innerHTML; // O tipo2Propio
-    const tipoDefensor = tipo1Rival.innerHTML; // O tipo2Rival
-    const modificador = tablaTipos[tipoAtacante][tipoDefensor] || 1; // Default 1
-    daño *= modificador;
 
-    //En caso de que el resultado de la resta sea negativo o cero, se va a dejar un 1 como el resultado minimo de la resta
-    let daño = ataque - defensa;
-    return daño > 0 ? daño : 1;  // Si el daño es negativo o cero, devolver 1
-};
 
 const combate = () => {
     if (!combateActivo) return;  // Si el combate no está activo, no hacer nada
